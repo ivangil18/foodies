@@ -1,4 +1,4 @@
-function SharePage() {
+function ShareMealPage() {
   return (
     <div>
       <p>Share page works</p>
@@ -6,4 +6,4 @@ function SharePage() {
   );
 }
 
-export default SharePage;
+export default ShareMealPage;
