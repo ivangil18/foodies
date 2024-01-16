@@ -3,6 +3,13 @@ import Link from "next/link";
 import classes from "./page.module.css";
 import MealsGrid from "@/components/meals/meals-grid";
 import { getMeals } from "@/lib/meals";
+import { Suspense } from "react";
+
+//MEALS FETCHING IS EXTRACTED TO ITS OWN COMPONENT TO ALLOW MORE GRANUALATE LODING MANAGEMENT IMPROVEM UX
+async function Meals() {
+  const meals = await getMeals();
+  return <MealsGrid meals={meals} />;
+}
 
 //STANDARD WAY TO GET DATA:
 // export default function MealsPage() {
@@ -10,9 +17,10 @@ import { getMeals } from "@/lib/meals";
 
 //DUE TO THE ALTERATION TO THE GETMEALS() FUNCTION TO TURN IT INTO A PROMISE TO ADD THE DELAY THIS IS FUNCION
 // TO BE DONE ASYNC FOR TRAINING PURPOSES ONLY:
-export default async function MealsPage() {
-  const meals = await getMeals();
+// export default async function MealsPage() {
+//   const meals = await getMeals();
 
+export default function MealsPage() {
   return (
     <>
       <header className={classes.header}>
@@ -28,7 +36,11 @@ export default async function MealsPage() {
         </p>
       </header>
       <main className={classes.main}>
-        <MealsGrid meals={meals} />
+        <Suspense
+          fallback={<p className={classes.loading}>Fetching Meals...</p>}
+        >
+          <Meals />
+        </Suspense>
       </main>
     </>
   );
