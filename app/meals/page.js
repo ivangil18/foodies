@@ -5,6 +5,11 @@ import MealsGrid from "@/components/meals/meals-grid";
 import { getMeals } from "@/lib/meals";
 import { Suspense } from "react";
 
+export const metadata = {
+  title: "All meals",
+  description: "Browse the meals sharede by our community",
+};
+
 //MEALS FETCHING IS EXTRACTED TO ITS OWN COMPONENT TO ALLOW MORE GRANUALATE LODING MANAGEMENT IMPROVEM UX
 async function Meals() {
   const meals = await getMeals();
